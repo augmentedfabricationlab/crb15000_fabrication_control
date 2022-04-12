@@ -39,7 +39,7 @@ services:
       - file_server.launch
 
   abb-demo:
-    image: gramaziokohler/abb_crb15000_5_95_moveit_config:latest
+    image: augmentedfabricationlab/ros-abb-crb15000-planner:latest
     container_name: abb-crb15000-demo
     environment:
       - ROS_HOSTNAME=abb-demo
@@ -51,7 +51,7 @@ services:
     command:
       - roslaunch
       - --wait
-      - abb_crb15000_5_95_moveit_config
+      - abb_crb15000_moveit_config
       - demo.launch
 
   gui:
