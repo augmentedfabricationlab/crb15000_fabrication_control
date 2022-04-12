@@ -1,0 +1,64 @@
+#
+# Generated backup file, do not edit.
+#
+# Originally at: /user/TEMP/backup.690153
+# 2022-04-12  13:23:32
+#
+>>SYSTEM_ID:
+15000-100072
+
+>>PRODUCTS_ID:
+RobotOS Version: 4.1.0
+RobotControl Version: 7.5.2
+Wizard Version: 1.3.2
+Robots Version: 1.5.1
+ASI Version: 1.0.5
+FlexPendantSoftwareUpdate Version: 1.7.1
+
+  RobotControl Base
+  3024-1 EtherNet/IP Scanner
+  3024-2 EtherNet/IP Adapter
+  3121-1 RW Add-In Prepared
+  3119-1 RobotStudio Connect
+  3106-1 World Zones
+  3113-1 Path Recovery
+  3107-1 Collision Detection
+  3150-1 Collision Avoidance
+  3120-2 FlexPendant Essential App Package
+  3151-1 FlexPendant Program Package
+  3114-1 Multitasking
+  3124-1 Externally Guided Motion (EGM)
+  UDPUC Driver
+  3043-3 SafeMove Collaborative
+  3044-2 Keyless Mode Switch, 2 modes
+  Leadthrough
+  Safe Move Plug and Play
+  No Category 0
+  Motor Commutation
+  Service Info System
+  C30 for CRB 15000
+  Wizard
+  CRB 15000-5/0.95
+  ASI
+  FlexPendant App Package
+
+>>HOME:
+All public files and directories
+
+>>SYSPAR:
+SYS.cfg
+SIO.cfg
+PROC.cfg
+MMC.cfg
+MOC.cfg
+EIO.cfg
+
+
+
+>>TASK2: (T_ROB1,,)
+SYSMOD/GOFA_ASI_Procedures.sysx @ 
+SYSMOD/Wizard_Params.sysx @ 
+
+
+
+>>EOF:

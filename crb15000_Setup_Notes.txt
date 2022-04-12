@@ -1,0 +1,6 @@
+ABB Setup Notes
+
+URDF-Ordner .xacro muss erst noch konvertiert werden
+https://answers.ros.org/question/10401/how-to-convert-xacro-file-to-urdf-file/
+.srdf File fehlt noch --> die brauchen wir auch noch!
+MoveIt Setup müssen wir noch am Linux machen
