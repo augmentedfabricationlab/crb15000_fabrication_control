@@ -1,0 +1,61 @@
+version: '2'
+services:
+  ros-master:
+    image: gramaziokohler/ros-base:latest
+    container_name: ros-master
+    ports:
+      - "11311:11311"
+    command:
+      - roscore
+
+  ros-bridge:
+    image: augmentedfabricationlab/ros-abb-crb15000-planner:latest
+    container_name: ros-bridge
+    environment:
+      - "ROS_HOSTNAME=ros-bridge"
+      - "ROS_MASTER_URI=http://ros-master:11311"
+    ports:
+      - "9090:9090"
+    depends_on:
+      - ros-master
+    command:
+      - roslaunch
+      - --wait
+      - rosbridge_server
+      - rosbridge_websocket.launch
+
+  ros-fileserver:
+    image: augmentedfabricationlab/ros-abb-crb15000-planner:latest
+    container_name: ros-fileserver
+    environment:
+      - ROS_HOSTNAME=ros-fileserver
+      - ROS_MASTER_URI=http://ros-master:11311
+    depends_on:
+      - ros-master
+    command:
+      - roslaunch
+      - --wait
+      - file_server
+      - file_server.launch
+
+  abb-demo:
+    image: gramaziokohler/abb_crb15000_5_95_moveit_config:latest
+    container_name: abb-crb15000-demo
+    environment:
+      - ROS_HOSTNAME=abb-demo
+      - ROS_MASTER_URI=http://ros-master:11311
+      - DISPLAY=gui:0.0
+    depends_on:
+      - ros-master
+      - gui
+    command:
+      - roslaunch
+      - --wait
+      - abb_crb15000_5_95_moveit_config
+      - demo.launch
+
+  gui:
+    image: gramaziokohler/novnc:latest
+    container_name: abb-fabtory-gui
+    ports:
+      - "8080:8080"
