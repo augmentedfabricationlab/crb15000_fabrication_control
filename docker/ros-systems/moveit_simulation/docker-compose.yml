@@ -51,11 +51,11 @@ services:
     command:
       - roslaunch
       - --wait
-      - abb_crb15000_moveit_config
+      - abb_crb15000_5_95_moveit_config
       - demo.launch
 
   gui:
     image: gramaziokohler/novnc:latest
-    container_name: abb-fabtory-gui
+    container_name: abb-crb15000-gui
     ports:
       - "8080:8080"
