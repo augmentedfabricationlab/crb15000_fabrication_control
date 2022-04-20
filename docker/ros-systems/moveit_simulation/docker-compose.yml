@@ -1,7 +1,7 @@
 version: '2'
 services:
   ros-master:
-    image: gramaziokohler/ros-base:latest
+    image: gramaziokohler/ros-noetic-moveit:latest
     container_name: ros-master
     ports:
       - "11311:11311"

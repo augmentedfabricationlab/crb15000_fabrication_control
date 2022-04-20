@@ -4,7 +4,7 @@
 # Usage:
 #  docker pull augmentedfabricationlab/ros-abb-fabtory-planner
 
-FROM gramaziokohler/ros-abb-planner
+FROM gramaziokohler/ros-noetic-moveit
 LABEL maintainer "Gonzalo Casas <casas@arch.ethz.ch>"
 
 SHELL ["/bin/bash","-c"]
@@ -21,7 +21,8 @@ RUN echo "Building tools for ROS" \
     # && apt-get update && apt-get -y upgrade \
     # RRC packages
     && git clone https://github.com/compas-rrc/compas_rrc_ros.git \
-    && git clone https://github.com/augmentedfabricationlab/robotic_setups_description.git \
+    && git clone https://github.com/gramaziokohler/abb_crb15000_5_95_moveit_config \
+    # && git clone https://github.com/augmentedfabricationlab/robotic_setups_description.git \
     # Install dependencies
     && cd $CATKIN_WS \
     && rosdep install -y --from-paths . --ignore-src --rosdistro ${ROS_DISTRO}\
