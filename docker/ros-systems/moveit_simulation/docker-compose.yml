@@ -59,3 +59,22 @@ services:
     container_name: abb-crb15000-gui
     ports:
       - "8080:8080"
+
+
+  abb-driver-1:
+    image: augmentedfabricationlab/ros-abb-crb15000-planner:latest
+    container_name: abb-driver-1
+    environment:
+      - ROS_HOSTNAME=abb-driver-1
+      - ROS_MASTER_URI=http://ros-master:11311
+    depends_on:
+      - ros-master
+    command:
+      - roslaunch
+      - --wait
+      - compas_rrc_driver
+      - bringup.launch
+      - robot_ip:=192.168.125.1
+      - robot_streaming_port:=30101
+      - robot_state_port:=30201
+      - namespace:=rob1
