@@ -1,0 +1,47 @@
+# Build:
+#  docker build --rm -f Dockerfile --build-arg FROM_IMAGE_TAG=${TAG} -t gramaziokohler/ros-noetic-moveit:${TAG} .
+#
+# Usage:
+#  docker pull gramaziokohler/ros-noetic-moveit
+
+ARG FROM_IMAGE_TAG
+
+FROM augmentedfabricationlab/ros-noetic-base:latest
+# FROM moveit/moveit:noetic-source
+LABEL maintainer="Gido Dielemans <gido.dielemans@tum.de>"
+
+SHELL ["/bin/bash","-c"]
+
+ENV CATKIN_WS=/root/catkin_ws
+# RUN mkdir -p $CATKIN_WS/src
+# WORKDIR $CATKIN_WS/src
+ENV DEBIAN_FRONTEND=noninteractive
+
+# All apt-get commands start with an update, then install
+# and finally, a cache cleanup to keep the image size small.
+
+# MoveIt
+RUN echo "Install MoveIt" \
+    && source /opt/ros/noetic/setup.bash \
+    && apt-get update && apt-get upgrade \
+    # ROS MoveIt
+    && apt-get install -y ros-noetic-moveit --no-install-recommends \    
+    && rm -rf /var/lib/apt/lists/*
+
+# Add robot packages to local catkin workspace
+RUN echo "Building common MoveIt Planners" \
+    && source /opt/ros/${ROS_DISTRO}/setup.bash \
+    && apt-get update && apt-get -y upgrade \
+    # ABB packages (abb_driver only included because some other packages reference it, but we don't use it)
+    && git clone https://github.com/gidodielemans/abb.git \
+    && git clone https://github.com/ros-industrial/abb_driver.git \
+    && git clone https://github.com/ros-industrial/abb_experimental.git \
+    && git clone https://github.com/gramaziokohler/abb_crb15000_5_95_moveit_config.git \
+    # RRC packages
+    && git clone https://github.com/compas-rrc/compas_rrc_ros.git \
+    # Install dependencies
+    && cd $CATKIN_WS \
+    && rosdep install -y --from-paths . --ignore-src --skip-keys="abb_driver gazebo" --rosdistro ${ROS_DISTRO} \
+    # Build catkin workspace
+    && catkin_make \
+    && rm -rf /var/lib/apt/lists/*
